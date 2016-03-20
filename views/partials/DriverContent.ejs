@@ -1,0 +1,39 @@
+<div class="col-xs-12 main">
+  <div id="map" class="col-xs-12" style="height:600px" ></div>
+      
+      <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
+      <script type="text/javascript">
+          gothere.load("maps");
+          var map;
+          var longitude,latitude;
+          function getLocation() {
+    		if (navigator.geolocation) {
+        		navigator.geolocation.getCurrentPosition(function(position){
+        			longitude = position.coords.longitude;
+        			latitude = position.coords.latitude;
+        			map.setCenter(new GLatLng(latitude, longitude), 15);
+        		});
+    		} else { 
+        		map.setCenter(new GLatLng(1.362083, 103.819836), 15);
+        	}
+}
+          function initialize() {
+            if (GBrowserIsCompatible()) {
+              // Create the Gothere map object.
+              map = new GMap2(document.getElementById("map"));
+              map.disableContinuousZoom();
+              map.disableScrollWheelZoom();
+              map.disableDoubleClickZoom();
+              // Set the center of the map.
+              getLocation();
+              // Add zoom controls on the top left of the map.
+              map.addControl(new GSmallMapControl());
+              // Add a scale bar at the bottom left of the map.
+              map.addControl(new GScaleControl());
+            }
+          }
+          gothere.setOnLoadCallback(initialize);
+      </script>
+  
+
+</div>

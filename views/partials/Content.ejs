@@ -1,0 +1,76 @@
+<div class="col-xs-12 main">
+  <div id="map" class="col-xs-12" style="height:600px" ></div>
+      
+      <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
+      <script type="text/javascript">
+          gothere.load("maps");
+          var map;
+          var taxis = [];
+          function getLocation() {
+        		if (navigator.geolocation) {
+            		navigator.geolocation.getCurrentPosition(function(position){
+            			var longitude = position.coords.longitude;
+            			var latitude = position.coords.latitude;
+            			var coordinates = new GLatLng(latitude, longitude);
+            			map.setCenter(coordinates, 15);
+        					var marker = new GMarker(coordinates);
+    		    			map.addOverlay(marker);
+            		});
+        		} else {
+        			longitude = 1.362083;
+            		latitude = 103.819836;
+            		map.setCenter(new GLatLng(latitude, longitude), 15);
+            		alert("Location Not Available!");
+            	}
+    		  }
+          function initialize() {
+            if (GBrowserIsCompatible()) {
+              // Create the Gothere map object.
+              map = new GMap2(document.getElementById("map"));
+              map.disableContinuousZoom();
+              map.disableScrollWheelZoom();
+              map.disableDoubleClickZoom();
+              // Set the center of the map.
+              getLocation();
+              // Add zoom controls on the top left of the map.
+              map.addControl(new GSmallMapControl());
+              // Add a scale bar at the bottom left of the map.
+              map.addControl(new GScaleControl());
+
+            }
+          }
+          gothere.setOnLoadCallback(initialize);
+
+          function showTaxis(){
+            var marker;
+            var coordinates;
+            var i;
+            var Gi = new GIcon(G_DEFAULT_ICON);
+            Gi.image = "./img/taxi.png";
+            Gi.shadow = "";
+            var options = {
+                icon: Gi,
+                clickable: true,
+                draggable: true
+            };
+            for (i=0;i<taxis.length;i++){
+              coordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
+              marker = new GMarker(coordinates, options);
+              map.addOverlay(marker);
+            }
+          }
+
+      </script>
+
+      <% for (var i=0;i<taxis.length;i++){ %>
+
+        <script>
+          taxis["<%= i %>"] = {
+            Latitude: "<%= taxis[i].Latitude %>",
+            Longitude: "<%= taxis[i].Longitude %>"
+          };
+        </script>
+
+      <% } %>
+  
+</div>

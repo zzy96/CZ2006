@@ -1,3 +1,5 @@
+var users = require('./users');
+
 var mongoose = require('mongoose');
 
 var dbURI = require('../config.js').dbURI;

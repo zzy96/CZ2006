@@ -5,7 +5,7 @@ var taxis = [];
 var i = 0;
 
 function getTaxiInfo(){
-	while (i<10000 && !finish){
+	while (i<3000 && !finish){
 		requestOptions = {
 			url: "http://datamall2.mytransport.sg/ltaodataservice/TaxiAvailability?$skip="+i,
 			headers:  { 'AccountKey' : 'HerxddpjOWwwCWuan3jxQw==',
@@ -31,7 +31,6 @@ function getTaxiInfo(){
 		});
 
 		i+=50;
-
 	}
 }
 

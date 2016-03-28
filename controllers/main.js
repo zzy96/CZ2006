@@ -45,7 +45,6 @@ function hardCodeUsers(){
 	userlocs.push(user1);
 	userlocs.push(user2);
 	userlocs.push(user3);
-	console.log(userlocs[1].Latitude);
 }
 
 module.exports = {

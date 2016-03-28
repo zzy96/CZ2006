@@ -37,7 +37,7 @@ function getTaxiInfo(){
 module.exports = {
 	index: function(req, res, next) {
 		getTaxiInfo();
-		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis});
+		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, recommend:{valid:false}, number:12345});
 	},
 	driver: function(req, res, next) {
 		res.render('DriverUI', { title: 'TaxiME', username:req.user.username});

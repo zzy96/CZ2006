@@ -41,7 +41,7 @@ module.exports = {
 		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis});
 	},
 	driver: function(req, res, next) {
-		res.render('DriverUI', { title: 'TaxiME', username:'Sample' });
+		res.render('DriverUI', { title: 'TaxiME', username:req.user.username});
 	},
 	admin: function(req, res, next) {
 		res.render('AdminUI', { title: 'TaxiME' });

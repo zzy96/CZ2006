@@ -2,7 +2,9 @@ var request = require('request');
 var requestOptions;
 var finish = false;
 var taxis = [];
+var userlocs = [];
 var i = 0;
+
 
 function getTaxiInfo(){
 	while (i<10000 && !finish){
@@ -34,18 +36,31 @@ function getTaxiInfo(){
 	}
 }
 
+
+
+function hardCodeUsers(){
+	var user1 = {Latitude:1.343828, Longitude:103.687089};
+	var user2 = {Latitude:1.342022, Longitude:103.679384};
+	var user3 = {Latitude:1.348734, Longitude:103.681817};
+	userlocs.push(user1);
+	userlocs.push(user2);
+	userlocs.push(user3);
+	console.log(userlocs[1].Latitude);
+}
+
 module.exports = {
 	index: function(req, res, next) {
 		getTaxiInfo();
 		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, recommend:{valid:false}, number:12345});
 	},
 	driver: function(req, res, next) {
-		res.render('DriverUI', { title: 'TaxiME', username:req.user.username});
+		hardCodeUsers();
+		res.render('DriverUI', { title: 'TaxiME', username:req.user.username, userlocs: userlocs });
 	},
 	admin: function(req, res, next) {
 		res.render('AdminUI', { title: 'TaxiME' });
 	},
 	login: function(req, res, next) {
-		res.render('Login', { title: 'TaxiME' });
+		res.render('Login', { title: 'TaxiME'});
 	},
 }

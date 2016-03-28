@@ -6,17 +6,25 @@
           gothere.load("maps");
           var map;
           var longitude,latitude;
+          var userlocs = [];
           function getLocation() {
-    		if (navigator.geolocation) {
-        		navigator.geolocation.getCurrentPosition(function(position){
-        			longitude = position.coords.longitude;
-        			latitude = position.coords.latitude;
-        			map.setCenter(new GLatLng(latitude, longitude), 15);
-        		});
-    		} else { 
-        		map.setCenter(new GLatLng(1.362083, 103.819836), 15);
-        	}
-}
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                  var longitude = position.coords.longitude;
+                  var latitude = position.coords.latitude;
+                  var coordinates = new GLatLng(latitude, longitude);
+                  map.setCenter(coordinates, 15);
+                  var marker = new GMarker(coordinates);
+                  map.addOverlay(marker);
+                });
+            } else {
+              longitude = 1.362083;
+                latitude = 103.819836;
+                map.setCenter(new GLatLng(latitude, longitude), 15);
+                alert("Location Not Available!");
+              }
+          }
+
           function initialize() {
             if (GBrowserIsCompatible()) {
               // Create the Gothere map object.
@@ -33,7 +41,36 @@
             }
           }
           gothere.setOnLoadCallback(initialize);
+
+          function showUsers(){
+            var marker;
+            var coordinates;
+            var i;
+            var Gi = new GIcon(G_DEFAULT_ICON);
+            Gi.image = "./img/user.png";
+            Gi.shadow = "";
+            var options = {
+                icon: Gi,
+                clickable: true,
+                draggable: true
+            };
+            for (i=0;i<userlocs.length;i++){
+              coordinates = new GLatLng(userlocs[i].Latitude, userlocs[i].Longitude);
+              marker = new GMarker(coordinates, options);
+              map.addOverlay(marker);
+            }
+          }
       </script>
-  
+
+      <% for (var i=0;i<userlocs.length;i++){ %>
+
+        <script>
+          userlocs["<%= i %>"] = {
+            Latitude: "<%= userlocs[i].Latitude %>",
+            Longitude: "<%= userlocs[i].Longitude %>"
+          };
+        </script>
+
+      <% } %>
 
 </div>

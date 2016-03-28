@@ -13,11 +13,12 @@ passport.use(new LocalStrategy(
 	function(username, password, done) {
 		if (username === 'admin' && password === 'taxime') {
 			return done(null, {username: 'admin'});
-		}else{
-      if (username === 'driver' && password === '123'){
-        return done(null, {username: 'driver'});
-      }
-    }
+            }
+        else{
+            if (username === 'driver' && password === '123'){
+                return done(null, {username: 'driver'});
+            }
+        }
 		return done(null, false);
 	}
 ));

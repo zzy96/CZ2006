@@ -20,20 +20,23 @@
           var map;
           var taxis = [];
           var coordinates;
+          var estTime = 9999;
+          var userLon;
+          var userLat;
           function getLocation() {
         		if (navigator.geolocation) {
             		navigator.geolocation.getCurrentPosition(function(position){
-            			var longitude = position.coords.longitude;
-            			var latitude = position.coords.latitude;
-            			coordinates = new GLatLng(latitude, longitude);
+            			userLon = position.coords.longitude;
+            			userLat = position.coords.latitude;
+            			coordinates = new GLatLng(userLat, userLon);
             			map.setCenter(coordinates, 15);
         					var marker = new GMarker(coordinates);
     		    			map.addOverlay(marker);
             		});
         		} else {
-        			  longitude = 103.819836;
-            		latitude = 1.362083;
-            		map.setCenter(new GLatLng(latitude, longitude), 15);
+        			  userLon = 103.819836;
+            		userLat = 1.362083;
+            		map.setCenter(new GLatLng(userLat, userLon), 15);
             		alert("Location Not Available!");
             	}
     		  }
@@ -74,36 +77,41 @@
             }
             console.log("hello?");
             nearestTaxiDis = nearestTaxiDis();
-            console.log("nearest Taxi Distance is");
+            console.log("nearest Taxi Distance is:");
             console.log(nearestTaxiDis);
-            document.write("nearest distance is : ");
-            document.write(nearestTaxiDis);
+            estTime = calculateTime(nearestTaxiDis);
+            console.log("Est time is:");
+            console.log(estTime);
+            document.getElementById("rec").innerHTML = estTime;
           }
 
           function nearestTaxiDis(){
-              userLon = coordinates.Longitude;
-              userLat = coordinates.Latitude;
-              nearestLon = 0;
-              nearestLat = 0;
-              nearestDis = calculateDistance(userLon, userLat, 0, 0);
+              nearestDis = 99999;
+              console.log(taxis[0].Latitude);
+              console.log(userLon);
+              console.log(userLat);
               for (i=0;i<taxis.length;i++){
                 taxiLat = taxis[i].Latitude;
                 taxiLon = taxis[i].Longitude;
-                distance = calculateDistance(userLon, userLat, taxiLat, taxiLon);
+                distance = calculateDistance(userLon, userLat, taxiLon, taxiLat);
+                // console.log(distance);
                 if (distance < nearestDis){
-                    nearestLat = taxiLat;
-                    nearestLon = taxiLon;
                     nearestDis = distance;
                 }
               }
-              console.log("nearest Taxi Distance get!")
+              console.log("nearest Taxi Distance get!");
+              console.log(nearestDis);
               return (nearestDis);
           }
 
-          function calculateDistance(userLon, userLat, taxiLat, taxiLon){
-              return (Math.sqrt(
-                  Math.sqrt(taxiLat - userLat) + Math.sqrt(taxiLon - userLon)))
+          function calculateDistance(userLon, userLat, taxiLon, taxiLat){
+        	  return Math.sqrt(Math.pow((userLon-taxiLon)/360*40000,2)+Math.pow((userLat-taxiLat)/360*40000,2));
           }
+
+          function calculateTime(distance){
+              return (Math.round(distance*3));
+          }
+
 
           function showRecommendation(){
             document.getElementById("rec").style.display="block";

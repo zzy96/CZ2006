@@ -13,18 +13,19 @@
       <p>No nearby taxi, call taxi company number: <%= number %></p>
     <% } %>
   </div>
-      
+
       <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
       <script type="text/javascript">
           gothere.load("maps");
           var map;
           var taxis = [];
+          var coordinates;
           function getLocation() {
         		if (navigator.geolocation) {
             		navigator.geolocation.getCurrentPosition(function(position){
             			var longitude = position.coords.longitude;
             			var latitude = position.coords.latitude;
-            			var coordinates = new GLatLng(latitude, longitude);
+            			coordinates = new GLatLng(latitude, longitude);
             			map.setCenter(coordinates, 15);
         					var marker = new GMarker(coordinates);
     		    			map.addOverlay(marker);
@@ -49,16 +50,16 @@
               map.addControl(new GSmallMapControl());
               // Add a scale bar at the bottom left of the map.
               map.addControl(new GScaleControl());
-
             }
           }
           gothere.setOnLoadCallback(initialize);
 
           function showTaxis(){
             var marker;
-            var coordinates;
+            var Taxicoordinates;
             var i;
             var Gi = new GIcon(G_DEFAULT_ICON);
+            console.log("miao?");
             Gi.image = "./img/taxi.png";
             Gi.shadow = "";
             var options = {
@@ -67,17 +68,48 @@
                 draggable: true
             };
             for (i=0;i<taxis.length;i++){
-              coordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
-              marker = new GMarker(coordinates, options);
+              Taxicoordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
+              marker = new GMarker(Taxicoordinates, options);
               map.addOverlay(marker);
             }
+            console.log("hello?");
+            nearestTaxiDis = nearestTaxiDis();
+            console.log("nearest Taxi Distance is");
+            console.log(nearestTaxiDis);
+            document.write("nearest distance is : ");
+            document.write(nearestTaxiDis);
+          }
+
+          function nearestTaxiDis(){
+              userLon = coordinates.Longitude;
+              userLat = coordinates.Latitude;
+              nearestLon = 0;
+              nearestLat = 0;
+              nearestDis = calculateDistance(userLon, userLat, 0, 0);
+              for (i=0;i<taxis.length;i++){
+                taxiLat = taxis[i].Latitude;
+                taxiLon = taxis[i].Longitude;
+                distance = calculateDistance(userLon, userLat, taxiLat, taxiLon);
+                if (distance < nearestDis){
+                    nearestLat = taxiLat;
+                    nearestLon = taxiLon;
+                    nearestDis = distance;
+                }
+              }
+              console.log("nearest Taxi Distance get!")
+              return (nearestDis);
+          }
+
+          function calculateDistance(userLon, userLat, taxiLat, taxiLon){
+              return (Math.sqrt(
+                  Math.sqrt(taxiLat - userLat) + Math.sqrt(taxiLon - userLon)))
           }
 
           function showRecommendation(){
             document.getElementById("rec").style.display="block";
             if (recommend){
               var marker;
-              var coordinates;
+              var recommendCoordinates;
               var i;
               var Gi = new GIcon(G_DEFAULT_ICON);
               Gi.image = "./img/taxi.png";
@@ -87,8 +119,8 @@
                   clickable: true,
                   draggable: true
               };
-              coordinates = new GLatLng(recommend.Latitude, recommend.Longitude);
-              marker = new GMarker(coordinates, options);
+              recommendCoordinates = new GLatLng(recommend.Latitude, recommend.Longitude);
+              marker = new GMarker(recommendCoordinates, options);
               map.addOverlay(marker);
             }
           }
@@ -105,5 +137,5 @@
         </script>
 
       <% } %>
-  
+
 </div>

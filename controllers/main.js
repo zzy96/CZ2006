@@ -39,12 +39,22 @@ function getTaxiInfo(){
 
 
 function findNearbyUsers(){
-	var user1 = {Latitude:1.343828, Longitude:103.687089};
-	var user2 = {Latitude:1.342022, Longitude:103.679384};
-	var user3 = {Latitude:1.348734, Longitude:103.681817};
+	user1 = {Latitude:1.343828, Longitude:103.687089};
+	user2 = {Latitude:1.342022, Longitude:103.679384};
+	user3 = {Latitude:1.348734, Longitude:103.681817};
+	user4 = {Latitude:1.344225, Longitude:103.691426};
+	user5 = {Latitude:1.344303, Longitude:103.689853};
+	user6 = {Latitude:1.346968, Longitude:103.690381};
+	user7 = {Latitude:1.342580, Longitude:103.688364};
+	user8 = {Latitude:1.340973, Longitude:103.686920};
 	userlocs.push(user1);
 	userlocs.push(user2);
 	userlocs.push(user3);
+	userlocs.push(user4);
+	userlocs.push(user5);
+	userlocs.push(user6);
+	userlocs.push(user7);
+	userlocs.push(user8);
 }
 
 module.exports = {

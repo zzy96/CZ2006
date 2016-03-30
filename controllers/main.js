@@ -38,7 +38,7 @@ function getTaxiInfo(){
 
 
 
-function hardCodeUsers(){
+function findNearbyUsers(){
 	var user1 = {Latitude:1.343828, Longitude:103.687089};
 	var user2 = {Latitude:1.342022, Longitude:103.679384};
 	var user3 = {Latitude:1.348734, Longitude:103.681817};
@@ -53,13 +53,13 @@ module.exports = {
 		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, recommend:{valid:false}, number:12345});
 	},
 	driver: function(req, res, next) {
-		hardCodeUsers();
+		findNearbyUsers();
 		res.render('DriverUI', { title: 'TaxiME', username:req.user.username, userlocs: userlocs });
 	},
 	admin: function(req, res, next) {
 		res.render('AdminUI', { title: 'TaxiME' });
 	},
 	login: function(req, res, next) {
-		res.render('Login', { title: 'TaxiME'});
+		res.render('LoginUI', { title: 'TaxiME'});
 	},
 }

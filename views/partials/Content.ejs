@@ -1,5 +1,8 @@
 <div class="col-xs-12 main">
   <div id="map" class="col-xs-12" style="height:600px" ></div>
+  <div>
+      <p id="time"></p>
+  </div>
   <div id="rec" style="display:none" class="col-xs-12">
     <% if (recommend.valid){ %>
       <p>Go to the recommended waiting location</p>
@@ -82,7 +85,7 @@
             estTime = calculateTime(nearestTaxiDis);
             console.log("Est time is:");
             console.log(estTime);
-            document.getElementById("rec").innerHTML = estTime;
+            document.getElementById("time").innerHTML = "Estimated waiting time is:" + estTime + " minutes!";
           }
 
           function nearestTaxiDis(){

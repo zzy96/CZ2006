@@ -85,7 +85,12 @@
             estTime = calculateTime(nearestTaxiDis);
             console.log("Est time is:");
             console.log(estTime);
-            document.getElementById("time").innerHTML = "Estimated waiting time is:" + estTime + " minutes!";
+            if (estTime > 20){
+                document.getElementById("time").innerHTML = "No taxis nearby!"
+            }
+            else{
+                document.getElementById("time").innerHTML = "Estimated waiting time is:" + estTime + " minutes!";
+            }
           }
 
           function nearestTaxiDis(){

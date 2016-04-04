@@ -18,12 +18,13 @@ function isLoggedIn(req, res, next) {
         return next();
     res.redirect("/login");
 }
+router.post('/admin', ctrlMain.addDriver);
 router.get('/login', ctrlMain.login);
 router.post('/login', passport.authenticate('local'), function(req, res) {
       if (req.user.username == 'admin'){
       	res.redirect('/admin');
       }else{
-      	if (req.user.username == 'driver'){
+      	if (req.user.username != null){
       		res.redirect('/driver');
       	}else{
       		res.redirect('/login');

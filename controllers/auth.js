@@ -1,3 +1,4 @@
+var db = require('../models/db');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -15,9 +16,12 @@ passport.use(new LocalStrategy(
 			return done(null, {username: 'admin'});
             }
         else{
-            if (username === 'driver' && password === '123'){
-                return done(null, {username: 'driver'});
-            }
+        	var drivers = db.getDriverInfo();
+        	for (var i=0;i<drivers.length;i++){
+        		if (username === drivers[i].username && password === drivers[i].password){
+	                return done(null, {"username": username});
+	            }
+        	}
         }
 		return done(null, false);
 	}

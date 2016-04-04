@@ -1,3 +1,4 @@
+var db = require('../models/db');
 var request = require('request');
 var requestOptions;
 var finish = false;
@@ -60,16 +61,20 @@ function findNearbyUsers(){
 module.exports = {
 	index: function(req, res, next) {
 		getTaxiInfo();
-		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, recommend:{valid:false}, number:12345});
+		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, taxiCompany: (db.getTaxiCompanyInfo())[0]});
 	},
 	driver: function(req, res, next) {
 		findNearbyUsers();
 		res.render('DriverUI', { title: 'TaxiME', username:req.user.username, userlocs: userlocs });
 	},
 	admin: function(req, res, next) {
-		res.render('AdminUI', { title: 'TaxiME' });
+		res.render('AdminUI', { title: 'TaxiME', drivers: db.getDriverInfo(), taxiCompanys: db.getTaxiCompanyInfo()});
 	},
 	login: function(req, res, next) {
 		res.render('LoginUI', { title: 'TaxiME'});
 	},
+	addDriver: function(req, res, next){
+		db.addDriver(req.body.username, req.body.password, req.body.name, req.body.phone);
+		res.redirect('back');
+	}
 }

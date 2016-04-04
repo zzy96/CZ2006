@@ -1,37 +1,24 @@
-var mongoose = require('mongoose');
-
-var dbURI = require('../config.js').dbURI;
-mongoose.connect(dbURI);
-
-mongoose.connection.on('connected',function(){
-	console.log('Mongoose connected to ' + dbURI);
-})
-mongoose.connection.on('error',function(err){
-	console.log('Mongoose connection error: ' + err);
-})
-mongoose.connection.on('disconnected',function(){
-	console.log('Mongoose disconnected');
-})
-
-var gracefulShutdown = function(msg, callback){
-	mongoose.connection.close(function(){
-		console.log('Mongoose disconnected through ' + msg);
-		callback();
-	});
-};
-
-process.once('SIGUSR2', function(){
-	gracefulShutdown('nodemon restart', function(){
-		process.kill(process.pid, 'SIGUSR2');
-	});
-});
-process.on('SIGINT', function(){
-	gracefulShutdown('app terminate', function(){
-		process.exit(0);
-	});
-});
-process.on('SIGTERM', function(){
-	gracefulShutdown('app shut down', function(){
-		process.exit(0);
-	});
-});
+module.exports = {
+	addDriver: function(username, password, name, phone){
+		var drivers = require("./drivers");
+		drivers.push({"username":username,"password":password,"name":name,"phone":phone});
+		var fs = require("fs");
+		fs.writeFile("./drivers.json", JSON.stringify(drivers), function(error){
+	    	if(error) { 
+	      		console.log(error);
+	    	} 
+		});
+	},
+	delDriver: function(){
+	},
+	addTaxiCompany: function(){
+	},
+	delTaxiCompany: function(){
+	},
+	getDriverInfo: function(){
+		return require("./drivers");
+	},
+	getTaxiCompanyInfo: function(){
+		return require("./taxiCompanys");
+	}
+}

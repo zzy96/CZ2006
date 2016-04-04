@@ -1,29 +1,24 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-  <h1 class="page-header">Taxi Company List</h1>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Phone</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
+  
+  <div class="container" id="form" style="display:none">
 
-        <tr>
-          <td>1</td>
-          <td>example</td>
-          <td>NTU</td>
-          <td>111</td>
-          <td>example@taxime.com</td>
-        </tr>
-        
-      </tbody>
-    </table>
+    <form class="form-signin" method="POST">
+      <h2 class="form-signin-heading">Add New Driver</h2>
+
+      <label class="sr-only">Username</label>
+      <input name="username" class="form-control" placeholder="Username">
+      <label class="sr-only">Password</label>
+      <input name="password" class="form-control" placeholder="Password">
+      <label class="sr-only">Name</label>
+      <input name="name" class="form-control" placeholder="Name">
+      <label class="sr-only">Phone</label>
+      <input name="phone" class="form-control" placeholder="Phone">
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+    </form>
+
   </div>
+
   <h1 class="page-header">Driver List</h1>
   <div class="table-responsive">
     <table class="table table-striped">
@@ -38,15 +33,46 @@
       </thead>
       <tbody>
 
-        <tr>
-          <td>1</td>
-          <td>example</td>
-          <td>password</td>
-          <td>driver</td>
-          <td>12345</td>
-        </tr>
+        <% for (var i=0;i<drivers.length;i++){ %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= drivers[i].username %></td>
+            <td><%= drivers[i].password %></td>
+            <td><%= drivers[i].name %></td>
+            <td><%= drivers[i].phone %></td>
+          </tr>
+        <% } %>
         
       </tbody>
     </table>
   </div>
+
+  <h1 class="page-header">Taxi Company List</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% for (var i=0;i<taxiCompanys.length;i++){ %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= taxiCompanys[i].name %></td>
+            <td><%= taxiCompanys[i].address %></td>
+            <td><%= taxiCompanys[i].phone %></td>
+            <td><%= taxiCompanys[i].email %></td>
+          </tr>
+        <% } %>
+
+      </tbody>
+    </table>
+  </div>
+
 </div>

@@ -3,7 +3,7 @@ module.exports = {
 		var drivers = require("./drivers");
 		drivers.push({"username":username,"password":password,"name":name,"phone":phone});
 		var fs = require("fs");
-		fs.writeFile("./drivers.json", JSON.stringify(drivers), function(error){
+		fs.writeFile("./models/drivers.json", JSON.stringify(drivers), function(error){
 	    	if(error) { 
 	      		console.log(error);
 	    	} 

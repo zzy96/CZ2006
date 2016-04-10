@@ -1,16 +1,26 @@
 <div class="col-xs-3 col-sm-2 sidebar">
   <ul class="nav nav-sidebar">
-    <li><a href="">Add Taxi Company</a></li>
-    <li><a href="">Update Taxi Company</a></li>
-    <li><a href="">Delete Taxi Company</a></li>
-    <li><a href="" onclick="showForm();">Add Driver</a></li>
-    <li><a href="">Update Driver</a></li>
-    <li><a href="">Delete Driver</a></li>
+    <li><a href="#" onclick="showForm('driver');">Add New Driver</a></li>
+    <li><a href="#" onclick="showForm('taxic');">Add New Taxi Company</a></li>
   </ul>
 </div>
 
 <script>
-	function showForm(){
-		document.getElementById('form').style.display='block';
+	function showForm(formid){
+    if (formid=="driver"){
+      if (document.getElementById("driver").style.display=='none'){
+        document.getElementById("driver").style.display='block';
+        document.getElementById("taxic").style.display='none';
+      }else{
+        document.getElementById("driver").style.display='none';
+      }
+    }else{
+      if (document.getElementById("taxic").style.display=='none'){
+        document.getElementById("taxic").style.display='block';
+        document.getElementById("driver").style.display='none';
+      }else{
+        document.getElementById("taxic").style.display='none';
+      }
+    }  
 	}
 </script>

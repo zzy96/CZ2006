@@ -6,7 +6,7 @@
       <p id="recommend" style="display:none">Go to the recommended waiting location</p>
       <p id="call" style="display:none">No nearby taxi, call a cab<br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
   </div>
-  
+
 
       <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
       <script type="text/javascript">
@@ -36,7 +36,7 @@
         			  userLon = 103.819836;
             		userLat = 1.362083;
             		map.setCenter(new GLatLng(userLat, userLon), 15);
-            		alert("Location Not Available!");
+            		alert("Location Not Available! Please turn on your GPS and try again later!");
             	}
     		  }
           function initialize() {
@@ -53,6 +53,9 @@
               // Add a scale bar at the bottom left of the map.
               map.addControl(new GScaleControl());
             }
+            else{
+                alert("Your browser is not compatible! Please change to another browser!");
+            }
           }
           gothere.setOnLoadCallback(initialize);
 
@@ -68,6 +71,10 @@
                 clickable: true,
                 draggable: false
             };
+            if (taxis.length < 100){
+                alert("MyTransport.sg is facing downtime and the issue is being resolved! Please try again later!");
+                return false;
+            }
             for (i=0;i<taxis.length;i++){
               Taxicoordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
               marker = new GMarker(Taxicoordinates, options);
@@ -80,6 +87,7 @@
             else{
                 document.getElementById("time").innerHTML = "Estimated waiting time is: " + estTime + " minutes!";
             }
+            return true;
           }
 
           function nearestTaxiDis(){

@@ -29,9 +29,16 @@ module.exports = {
 	getTaxiCompanyInfo: function(){
 		return require("./taxiCompanys");
 	},
-
+	
 	addHistory: function(latitude, longitude){
-
+		var history = require("./history");
+		history.push({"Latitude":latitude,"Longitude":longitude});
+		var fs = require("fs");
+		fs.writeFile("./models/history.json", JSON.stringify(history), function(error){
+	    	if(error) { 
+	      		console.log(error);
+	    	} 
+		});
 	},
 	getHistory: function(){
 		return require("./history");

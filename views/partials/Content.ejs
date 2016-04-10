@@ -3,16 +3,16 @@
     <div class="alert alert-success">
         <h2 id="time"></h2>
     </div>
-    <div class="alert alert-success">
-        <p id="wait" style="display:none">There is taxi around your location. Wait nearby</p>
+    <div id="wait" style="display:none" class="alert alert-success">
+        <p>There is taxi around your location. Wait nearby</p>
     </div>
-    <div class="alert alert-info">
-        <p id="recommend" style="display:none">Go to the recommended waiting location</p>
+    <div id="recommend" style="display:none" class="alert alert-info">
+        <p>Go to the recommended waiting location</p>
     </div>
-    <div class="alert alert-danger">
-        <p id="call" style="display:none">No nearby taxi, call a cab<br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
+    <div id="call"  style="display:none" class="alert alert-danger">
+        <p>No nearby taxi, call a cab<br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
     </div>
-</div>
+    <div id="map" class="col-xs-12" style="height:600px" ></div>
 
 
 

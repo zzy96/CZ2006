@@ -11,7 +11,15 @@ module.exports = {
 	},
 	delDriver: function(){
 	},
-	addTaxiCompany: function(){
+	addTaxiCompany: function(name, address, email, phone){
+		var taxiCompanys = require("./taxiCompanys");
+		taxiCompanys.push({"name":name,"address":address,"email":email,"phone":phone});
+		var fs = require("fs");
+		fs.writeFile("./models/taxiCompanys.json", JSON.stringify(taxiCompanys), function(error){
+	    	if(error) { 
+	      		console.log(error);
+	    	} 
+		});
 	},
 	delTaxiCompany: function(){
 	},

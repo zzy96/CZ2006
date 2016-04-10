@@ -73,8 +73,13 @@ module.exports = {
 	login: function(req, res, next) {
 		res.render('LoginUI', { title: 'TaxiME'});
 	},
-	addDriver: function(req, res, next){
-		db.addDriver(req.body.username, req.body.password, req.body.name, req.body.phone);
+	add: function(req, res, next){
+		if (req.body.type=="driver"){
+			db.addDriver(req.body.username, req.body.password, req.body.name, req.body.phone);
+		}
+		if (req.body.type=="taxic"){
+			db.addTaxiCompany(req.body.name, req.body.address, req.body.email, req.body.phone);
+		}
 		res.redirect('back');
 	}
 }

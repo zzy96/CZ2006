@@ -1,5 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-  
+
   <div class="container" id="form" style="display:none">
 
     <form class="form-signin" method="POST">
@@ -13,7 +13,7 @@
       <input name="name" class="form-control" placeholder="Name">
       <label class="sr-only">Phone</label>
       <input name="phone" class="form-control" placeholder="Phone">
-      
+
       <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
     </form>
 
@@ -29,6 +29,8 @@
           <th>Password</th>
           <th>Name</th>
           <th>Phone</th>
+          <th>Update</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -40,9 +42,23 @@
             <td><%= drivers[i].password %></td>
             <td><%= drivers[i].name %></td>
             <td><%= drivers[i].phone %></td>
+            <td class='col-md-1'>
+                <button style='width:100%' type='button' class='btn btn-xs btn-info'>
+                    <span>
+                        <img src="./img/pencil.png" width="15px" height="15px">
+                    </span>&nbsp;
+                </button>
+            </td>
+            <td class='col-md-1'>
+                <button style='width:100%' type='button' class='btn btn-xs btn-danger'>
+                    <span>
+                        <img src="./img/remove.png" width="15px" height="15px">
+                    </span>&nbsp;
+                </button>
+            </td>
           </tr>
         <% } %>
-        
+
       </tbody>
     </table>
   </div>
@@ -57,6 +73,8 @@
           <th>Address</th>
           <th>Phone</th>
           <th>Email</th>
+          <th>Update</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -68,6 +86,20 @@
             <td><%= taxiCompanys[i].address %></td>
             <td><%= taxiCompanys[i].phone %></td>
             <td><%= taxiCompanys[i].email %></td>
+            <td class='col-md-1'>
+                <button style='width:100%' type='button' class='btn btn-xs btn-info'>
+                    <span>
+                        <img src="./img/pencil.png" width="15px" height="15px">
+                    </span>&nbsp;
+                </button>
+            </td>
+            <td class='col-md-1'>
+                <button style='width:100%' type='button' class='btn btn-xs btn-danger'>
+                    <span>
+                        <img src="./img/remove.png" width="15px" height="15px">
+                    </span>&nbsp;
+                </button>
+            </td>
           </tr>
         <% } %>
 

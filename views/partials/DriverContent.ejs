@@ -7,6 +7,7 @@
           var map;
           var longitude,latitude;
           var userlocs = [];
+          var history = [];
           function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position){
@@ -60,6 +61,25 @@
               map.addOverlay(marker);
             }
           }
+
+          function showRecommendation(){
+            var marker;
+            var coordinates;
+            var i;
+            var Gi = new GIcon(G_DEFAULT_ICON);
+            Gi.image = "./img/spot.png";
+            Gi.shadow = "";
+            var options = {
+                icon: Gi,
+                clickable: true,
+                draggable: false
+            };
+            for (i=0;i<history.length;i++){
+              coordinates = new GLatLng(history[i].Latitude, history[i].Longitude);
+              marker = new GMarker(coordinates, options);
+              map.addOverlay(marker);
+            }
+          }
       </script>
 
       <% for (var i=0;i<userlocs.length;i++){ %>
@@ -73,4 +93,14 @@
 
       <% } %>
 
+      <% for (var i=0;i<history.length;i++){ %>
+
+        <script>
+          history["<%= i %>"] = {
+            Latitude: "<%= history[i].Latitude %>",
+            Longitude: "<%= history[i].Longitude %>"
+          };
+        </script>
+
+      <% } %>
 </div>

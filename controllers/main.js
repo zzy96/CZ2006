@@ -65,7 +65,7 @@ module.exports = {
 	},
 	driver: function(req, res, next) {
 		findNearbyUsers();
-		res.render('DriverUI', { title: 'TaxiME', username:req.user.username, userlocs: userlocs });
+		res.render('DriverUI', { title: 'TaxiME', username:req.user.username, userlocs: userlocs, history: db.getHistory()});
 	},
 	admin: function(req, res, next) {
 		res.render('AdminUI', { title: 'TaxiME', drivers: db.getDriverInfo(), taxiCompanys: db.getTaxiCompanyInfo()});

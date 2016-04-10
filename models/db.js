@@ -28,5 +28,12 @@ module.exports = {
 	},
 	getTaxiCompanyInfo: function(){
 		return require("./taxiCompanys");
+	},
+
+	addHistory: function(latitude, longitude){
+
+	},
+	getHistory: function(){
+		return require("./history");
 	}
 }

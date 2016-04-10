@@ -2,7 +2,8 @@
   <div id="map" class="col-xs-12" style="height:600px" ></div>
   <div class="col-xs-12">
       <h2 id="time"></h2>
-      <p id="wait" style="display:none">Go to the recommended waiting location</p>
+      <p id="wait" style="display:none">There is taxi around your location. Wait nearby</p>
+      <p id="recommend" style="display:none">Go to the recommended waiting location</p>
       <p id="call" style="display:none">No nearby taxi, call a cab<br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
   </div>
   
@@ -16,6 +17,11 @@
           var estTime = 9999;
           var userLon;
           var userLat;
+
+          function load(){
+            confirm("Do you like to share your location with TaxiMe? Taxis will find you more easily next time");
+          }
+
           function getLocation() {
         		if (navigator.geolocation) {
             		navigator.geolocation.getCurrentPosition(function(position){
@@ -68,7 +74,7 @@
               map.addOverlay(marker);
             }
             estTime = calculateTime(nearestTaxiDis().distance);
-            if (estTime > 20){
+            if (estTime > 10){
                 document.getElementById("time").innerHTML = "No taxis nearby!"
             }
             else{
@@ -105,11 +111,12 @@
 
 
           function showRecommendation(){
-            if (document.getElementById("time").innerHTML == "No taxis nearby!"){
+            if (estTime > 10){
               document.getElementById("call").style.display="block";
-            }else{
+            }else if (estTime <= 3){
               document.getElementById("wait").style.display="block";
-              
+            }else{
+              document.getElementById("recommend").style.display="block";
               var marker;
               var coordinates;
               var i;
@@ -124,7 +131,6 @@
               coordinates = new GLatLng(nearestTaxiDis().taxi.Latitude, nearestTaxiDis().taxi.Longitude);
               marker = new GMarker(coordinates, options);
               map.addOverlay(marker);
-
               // var directions = new GDirections(map);
               // var options = {travelMode:G_TRAVEL_MODE_TAXI};
               // directions.load("from: @"+userLat+","+userLon+" to: @"+latitude+","+longitude, options);

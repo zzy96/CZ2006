@@ -61,7 +61,7 @@ function findNearbyUsers(){
 module.exports = {
 	index: function(req, res, next) {
 		getTaxiInfo();
-		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, taxiCompany: (db.getTaxiCompanyInfo())[0]});
+		res.render('GeneralUI', { title: 'TaxiME', taxis: taxis, taxiCompany: (db.getTaxiCompanyInfo())[1]});
 	},
 	driver: function(req, res, next) {
 		findNearbyUsers();

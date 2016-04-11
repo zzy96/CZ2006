@@ -10,7 +10,12 @@
         <p>Go to the recommended waiting location</p>
     </div>
     <div id="call"  style="display:none" class="alert alert-danger">
-        <p>No nearby taxi, Please call a cab. You can choose the following taxi companies: <br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
+      <p>No nearby taxi, Please call a cab. You can choose the following taxi companies: <br>
+        <% for (int i=0;i<taxiCompany.length;i++){ %>
+          taxi company: <%= taxiCompany[i].name %><br>
+          number: <%= taxiCompany[i].phone %><br>
+        <% } %>
+      </p>
     </div>
     <div id="map" class="col-xs-12" style="height:600px" ></div>
 
@@ -36,7 +41,7 @@
                   // userLon = 103.665646;
                   // userLat = 1.252875;
             			userLon = position.coords.longitude;
-            			userLat = position.coords.latitude;
+                  userLat = position.coords.latitude;
             			coordinates = new GLatLng(userLat, userLon);
             			map.setCenter(coordinates, 15);
         					var marker = new GMarker(coordinates);
@@ -103,13 +108,19 @@
           }
 
           function nearestTaxiDis(){
+              var taxiLat, taxiLon;
               nearestDis = 99999;
               nearest = 0;
               for (i=0;i<taxis.length;i++){
                 taxiLat = taxis[i].Latitude;
                 taxiLon = taxis[i].Longitude;
                 distance = calculateDistance(userLon, userLat, taxiLon, taxiLat);
-                // console.log(distance);
+                // if (distance<1){
+                //   console.log("taxiLon: "+taxiLon);
+                //   console.log("taxiLat:"+taxiLat);
+                //   console.log("userLon: "+userLon);
+                //   console.log("userLat:"+userLat);
+                // }
                 if (distance < nearestDis){
                     nearestDis = distance;
                     nearest = i;
@@ -126,6 +137,7 @@
           }
 
           function calculateTime(distance){
+              console.log(Math.round(distance*3));
               return (Math.round(distance*3));
           }
 

@@ -4,10 +4,11 @@
         <h2 id="time"></h2>
     </div>
     <div id="wait" style="display:none" class="alert alert-success">
-        <p>There is taxi around your location. Wait nearby</p>
+        <p>There are taxis around you. Please wait nearby!</p>
     </div>
     <div id="recommend" style="display:none" class="alert alert-info">
-        <p>Go to the recommended waiting location</p>
+        <p>Please go to the recommended waiting location</p>
+        <p id="walktime"></p>
     </div>
     <div id="call"  style="display:none" class="alert alert-danger">
       <p>No nearby taxi, please call a cab. You can choose the following taxi companys:<br>
@@ -38,10 +39,11 @@
           function getLocation() {
         		if (navigator.geolocation) {
             		navigator.geolocation.getCurrentPosition(function(position){
-                  // userLon = 103.665646;
-                  // userLat = 1.252875;
+                //   userLon = 103.676980;
+                //   userLat = 1.349710;
+
             			userLon = position.coords.longitude;
-                  userLat = position.coords.latitude;
+                        userLat = position.coords.latitude;
             			coordinates = new GLatLng(userLat, userLon);
             			map.setCenter(coordinates, 15);
         					var marker = new GMarker(coordinates);
@@ -153,14 +155,20 @@
               var coordinates;
               var i;
               var Gi = new GIcon(G_DEFAULT_ICON);
-              Gi.image = "./img/user.png";
+              Gi.image = "./img/rec.png";
               Gi.shadow = "";
               var options = {
                   icon: Gi,
                   clickable: true,
                   draggable: false
               };
-              coordinates = new GLatLng(nearestTaxiDis().taxi.Latitude, nearestTaxiDis().taxi.Longitude);
+              var nearestLat = nearestTaxiDis().taxi.Latitude;
+              var nearestLon = nearestTaxiDis().taxi.Longitude;
+              var nearestDis = calculateDistance(userLon, userLat, nearestLon, nearestLat);
+              var recLat = userLat - (userLat - nearestLat)/nearestDis/2;
+              var recLon = userLon - (userLon - nearestLon)/nearestDis/2;
+              document.getElementById("walktime").innerHTML = "Estimated time to walk to the recommend location is 6 minutes!";
+              coordinates = new GLatLng(recLat, recLon);
               marker = new GMarker(coordinates, options);
               map.addOverlay(marker);
               // var directions = new GDirections(map);

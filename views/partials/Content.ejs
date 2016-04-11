@@ -84,9 +84,11 @@
                 return false;
             }
             for (i=0;i<taxis.length;i++){
-              Taxicoordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
-              marker = new GMarker(Taxicoordinates, options);
-              map.addOverlay(marker);
+              if (calculateDistance(userLon,userLat, taxis[i].Longitude, taxis[i].Latitude) < 5){
+                Taxicoordinates = new GLatLng(taxis[i].Latitude, taxis[i].Longitude);
+                marker = new GMarker(Taxicoordinates, options);
+                map.addOverlay(marker);
+              }
             }
             estTime = calculateTime(nearestTaxiDis().distance);
             if (estTime > 10){

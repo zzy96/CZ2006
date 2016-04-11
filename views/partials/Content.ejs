@@ -11,9 +11,9 @@
     </div>
     <div id="call"  style="display:none" class="alert alert-danger">
       <p>No nearby taxi, call a cab<br>
-        <% for (int i=0;i<taxiCompany.length;i++){ %>
-          taxi company: <%= taxiCompany[i].name %><br>
-          number: <%= taxiCompany[i].phone %><br>
+        <% for (var i=0;i<taxiCompanys.length;i++){ %>
+          taxi company: <%= taxiCompanys[i].name %><br>
+          number: <%= taxiCompanys[i].phone %><br>
         <% } %>
       </p>
     </div>

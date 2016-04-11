@@ -10,7 +10,7 @@
         <p>Go to the recommended waiting location</p>
     </div>
     <div id="call"  style="display:none" class="alert alert-danger">
-        <p>No nearby taxi, call a cab<br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
+        <p>No nearby taxi, Please call a cab. You can choose the following taxi companies: <br>taxi company: <%= taxiCompany.name %><br>number: <%= taxiCompany.phone %></p>
     </div>
     <div id="map" class="col-xs-12" style="height:600px" ></div>
 
@@ -33,6 +33,8 @@
           function getLocation() {
         		if (navigator.geolocation) {
             		navigator.geolocation.getCurrentPosition(function(position){
+                  // userLon = 103.665646;
+                  // userLat = 1.252875;
             			userLon = position.coords.longitude;
             			userLat = position.coords.latitude;
             			coordinates = new GLatLng(userLat, userLon);

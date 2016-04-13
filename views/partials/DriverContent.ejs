@@ -78,10 +78,13 @@
                 draggable: false
             };
             for (i=0;i<history.length;i++){
+              console.log(history[i].Latitude);
+              console.log(history[i].Longitude);
               coordinates = new GLatLng(history[i].Latitude, history[i].Longitude);
               marker = new GMarker(coordinates, options);
               map.addOverlay(marker);
             }
+            console.log(history.length);
           }
       </script>
 
